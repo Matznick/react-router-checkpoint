@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import {
   Button,
   Form,
@@ -8,49 +8,58 @@ import {
   Row,
   Col,
   Alert,
-  Input
-} from 'reactstrap'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { userSignup } from '../actions/auth.actions'
+  Input,
+} from "reactstrap";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { userSignup } from "../actions/auth.actions";
+import { BrowserRouter, Link, Route } from "react-router-dom";
 
 export class Signup extends Component {
   state = {
     isValid: true,
-    passwordClasses: 'form-control',
-    name: '',
-    email: '',
-    company: '',
-    phone: '',
-    address: '',
-    password: '',
-    verify_password: ''
-  }
-  userSignup = e => {
-    e.preventDefault()
-    let { name, email, company, phone, password, verify_password, address } = this.state
+    passwordClasses: "form-control",
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    address: "",
+    password: "",
+    verify_password: "",
+  };
+  userSignup = (e) => {
+    e.preventDefault();
+    let {
+      name,
+      email,
+      company,
+      phone,
+      password,
+      verify_password,
+      address,
+    } = this.state;
     if (!password || password !== verify_password || !verify_password) {
       this.setState({
-        passwordClasses: this.state.passwordClasses + ' is-invalid',
-        isValid: false
-      })
+        passwordClasses: this.state.passwordClasses + " is-invalid",
+        isValid: false,
+      });
     } else {
-      let newUser = {name, email, company, phone, password, address}
-      console.log('newUser', newUser)
-      this.props.userSignup(newUser)
+      let newUser = { name, email, company, phone, password, address };
+      console.log("newUser", newUser);
+      this.props.userSignup(newUser, this.props.history);
     }
-  }
+  };
 
   render() {
     return (
       <Container className="main-wrapper">
-        <Row style={{ marginTop: '10vh', marginBottom: '10vh' }}>
+        <Row style={{ marginTop: "10vh", marginBottom: "10vh" }}>
           <Col
             lg={{ size: 6, offset: 3 }}
             style={{
-              border: '1px solid #c9c5c2',
+              border: "1px solid #c9c5c2",
               padding: 35,
-              boxShadow: '3px 3px 47px 0px rgba(0,0,0,0.5)'
+              boxShadow: "3px 3px 47px 0px rgba(0,0,0,0.5)",
             }}
           >
             <Form onSubmit={this.userSignup}>
@@ -62,9 +71,7 @@ export class Signup extends Component {
                   id="name-field"
                   placeholder="name"
                   value={this.state.name}
-                  onChange={e =>
-                    this.setState({ name: e.target.value })
-                  }
+                  onChange={(e) => this.setState({ name: e.target.value })}
                 />
               </FormGroup>
               <FormGroup>
@@ -75,12 +82,10 @@ export class Signup extends Component {
                   id="email-field"
                   placeholder="email"
                   value={this.state.email}
-                  onChange={e =>
-                    this.setState({ email: e.target.value })
-                  }
+                  onChange={(e) => this.setState({ email: e.target.value })}
                 />
               </FormGroup>
-               <FormGroup>
+              <FormGroup>
                 <Label for="company">Company</Label>
                 <Input
                   type="text"
@@ -88,9 +93,7 @@ export class Signup extends Component {
                   id="company-field"
                   placeholder="company"
                   value={this.state.company}
-                  onChange={e =>
-                    this.setState({ company: e.target.value })
-                  }
+                  onChange={(e) => this.setState({ company: e.target.value })}
                 />
               </FormGroup>
               <FormGroup>
@@ -101,9 +104,7 @@ export class Signup extends Component {
                   id="phone-field"
                   placeholder="phone"
                   value={this.state.phone}
-                  onChange={e =>
-                    this.setState({ phone: e.target.value })
-                  }
+                  onChange={(e) => this.setState({ phone: e.target.value })}
                 />
               </FormGroup>
               <FormGroup>
@@ -114,9 +115,7 @@ export class Signup extends Component {
                   id="address-field"
                   placeholder="address"
                   value={this.state.address}
-                  onChange={e =>
-                    this.setState({ address: e.target.value })
-                  }
+                  onChange={(e) => this.setState({ address: e.target.value })}
                 />
               </FormGroup>
               <FormGroup>
@@ -127,9 +126,7 @@ export class Signup extends Component {
                   id="password-field"
                   placeholder="password"
                   value={this.state.password}
-                  onChange={e =>
-                    this.setState({ password: e.target.value })
-                  }
+                  onChange={(e) => this.setState({ password: e.target.value })}
                 />
               </FormGroup>
               <FormGroup>
@@ -140,7 +137,7 @@ export class Signup extends Component {
                   id="verify_password"
                   placeholder="password"
                   value={this.state.verify_password}
-                  onChange={e =>
+                  onChange={(e) =>
                     this.setState({ verify_password: e.target.value })
                   }
                 />
@@ -155,14 +152,14 @@ export class Signup extends Component {
           </Col>
         </Row>
       </Container>
-    )
+    );
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    userSignup: bindActionCreators(userSignup, dispatch)
-  }
+    userSignup: bindActionCreators(userSignup, dispatch),
+  };
 }
 
-export default connect(null, mapDispatchToProps)(Signup)
+export default connect(null, mapDispatchToProps)(Signup);

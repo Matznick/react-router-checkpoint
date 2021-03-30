@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 import {
   Collapse,
@@ -7,17 +7,51 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink } from 'reactstrap';
+  NavLink,
+} from "reactstrap";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 export default class Example extends React.Component {
   state = {
-    isOpen: false
-  }
+    isOpen: false,
+  };
   toggle = () => {
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.state.isOpen,
     });
-  }
+  };
+
+  signIn = () => {
+    return (
+      <Nav className="ml-auto" navbar>
+        <NavItem>
+          <Link to="/login" className="nav-link">
+            Logout
+          </Link>
+        </NavItem>
+      </Nav>
+    );
+  };
+
+  signOut = () => {
+    return (
+      <Nav className="ml-auto" navbar>
+        <NavItem>
+          <Link to="/login" className="nav-link">
+            Login
+          </Link>
+        </NavItem>
+        <NavItem>
+          <Link to="/signup" className="nav-link">
+            Signup
+          </Link>
+        </NavItem>
+      </Nav>
+    );
+  };
+
   render() {
     return (
       <div>
@@ -25,14 +59,10 @@ export default class Example extends React.Component {
           <NavbarBrand href="/">ProfileHub</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <a href="#" className="nav-link">Login</a>
-              </NavItem>
-              <NavItem>
-                <a href="#" className="nav-link">Signup</a>
-              </NavItem>
-            </Nav>
+            <Switch>
+              <Route exact path="/profile" render={this.signIn} />
+              <Route path="/" render={this.signOut} />
+            </Switch>
           </Collapse>
         </Navbar>
       </div>
